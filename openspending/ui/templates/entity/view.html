@@ -7,7 +7,7 @@
 
   <py:def function="page_title" i18n:msg="view_entity">${c.entity['label']}</py:def>
 
-  <div py:def="content">
+  <div py:def="content" class="content">
     <h2>${c.entity['label']}</h2>
     
     <py:if test="hasattr(c, 'viewstate')">

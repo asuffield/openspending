@@ -6,23 +6,21 @@
 
   <py:def function="page_title">Settings for: ${c.account['name']}</py:def>
 
-  <div py:def="content">
-    <div class="span-24 last">
-      <h2>My Profile</h2>
-      <form class="basic settings" id="settings" action="/settings" method="POST">
-        <label for="fullname">Fullname</label>
-        <input name="fullname" />
-        <label for="email">E-Mail</label>
-        <input name="email" />
-        <label for="password1">Password</label>
-        <input name="password1" type="password" autocomplete="off" />
-        <label for="password2">Password (repeat)</label>
-        <input name="password2" type="password" autocomplete="off" />
+  <div py:def="content" class="content">
+    <h2>My Profile</h2>
+    <form class="basic settings" id="settings" action="/settings" method="POST">
+      <label for="fullname">Fullname</label>
+      <input name="fullname" />
+      <label for="email">E-Mail</label>
+      <input name="email" />
+      <label for="password1">Password</label>
+      <input name="password1" type="password" autocomplete="off" />
+      <label for="password2">Password (repeat)</label>
+      <input name="password2" type="password" autocomplete="off" />
 
-        <span class="labelpad">&nbsp;</span>
-        <input value="Save" type="submit" />
-      </form>
-    </div>
+      <span class="labelpad">&nbsp;</span>
+      <input value="Save" type="submit" />
+    </form>
   </div>
 
   <xi:include href="../layout.html" />

@@ -7,7 +7,7 @@
 
   <py:def function="page_title">${c.classifier.label}</py:def>
   
-  <div py:def="content">
+  <div py:def="content" class="content">
     <h2 class="page-title">${c.classifier.label}</h2>
     
     <py:if test="hasattr(c, 'viewstate')">

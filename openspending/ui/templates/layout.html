@@ -43,7 +43,7 @@
   </py:if>
 </head>
 <body class="${nav_class()}">
-  <div id="wrap">
+  <div id="page" class="container">
     <py:with vars="messages = list(h._flash.pop_messages())">
       <div class="flash-banner-box" py:if="len(messages)">
         <div class="flash-banner ${m.category}" py:for="m in messages">
@@ -51,63 +51,63 @@
         </div>
       </div>
     </py:with>
-    <div id="page" class="container">
-      <header>
-        <nav>
-          <a href="${g.blog_link}">Blog</a>
-          <a py:if="g.forum_link" href="${g.forum_link}">Forum</a>
-          <a href="${g.wiki_link}">About</a>
-          <a py:if="c.account is None" href="/login">Login or register</a>
-          <py:if test="c.account is not None">
-            <a href="/settings">My Profile</a>
-            <a href="/logout">Logout</a>
-          </py:if>
-          <a style="color: #C7262E;" href="/reporterror">Report data problems</a>
-        </nav>
-        <h1 id="site-title">
-          <a href="/">${g.site_title}</a>
-        </h1>
-        <div id="slogan" class="">
-          ${g.site_slogan}
-        </div>
-      </header>
 
-      <div id="main">
-        <div id="dataset">
-          <div id="search" class="span-7 last">
-            <form method="get" action="${url(controller='dataset', action='entries', name=c.dataset['name']) if c.dataset else '/search'}">
-              <input type="text" class="textinput" name="q" value="${c.browser.q if hasattr(c, 'browser') else ''}" />
-              <input type="submit" value="${_('Search')}" class=""/>
-            </form>
-          </div>
-          <ul id="dataset-menu">
-            <li id="dataset-select">
-              <a py:if="c.dataset" href="${h.dataset_url(c.dataset)}">${c.dataset['label']} &raquo;</a>
-              <a py:if="not c.dataset" href="${url(controller='dataset', action='index')}">(select a dataset)</a>
-              <ul>
-                <li py:for="dataset in c.datasets" py:if="not c.dataset or c.dataset['_id'] != dataset['_id']">
-                  <a href="${h.dataset_url(dataset)}">${dataset.get('label')}</a>
-                </li>
-                <li py:if="g.sandbox_mode"><a href="http://etl.sandbox.openspending.org">Import additional data...</a></li>
-              </ul>
-            </li>
-            <py:if test="c.dataset">
-              <li><a href="${url(controller='dataset', action='entries', name=c.dataset['name'])}">Search</a></li>
-              <!--li><a href="${url(controller='dataset', action='explorer',
-                name=c.dataset['name'])}">Explore</a></li-->
-              <li><a href="${url(controller='dimension', action='view', dataset=c.dataset['name'], dimension='from')}">Spenders</a></li>
-              <li><a href="${url(controller='dimension', action='view', dataset=c.dataset['name'], dimension='to')}">Recipients</a></li>
-            </py:if>
-          </ul>
-        </div>
-        <div id="content">
-          ${content()}
-        </div>
-        <div class="clearfix"></div>
+    <header class="span-24">
+      <nav>
+        <a href="${g.blog_link}">Blog</a>
+        <a py:if="g.forum_link" href="${g.forum_link}">Forum</a>
+        <a href="${g.wiki_link}">About</a>
+        <a py:if="c.account is None" href="/login">Login or register</a>
+        <py:if test="c.account is not None">
+          <a href="/settings">My Profile</a>
+          <a href="/logout">Logout</a>
+        </py:if>
+        <a style="color: #C7262E;" href="/reporterror">Report data problems</a>
+      </nav>
+      <h1 id="site-title">
+        <a href="/">${g.site_title}</a>
+      </h1>
+      <div id="slogan" class="">
+        ${g.site_slogan}
       </div>
-    </div>
+    </header>
 
-    <footer class="container">
+    <div id="main" class="span-24">
+      <div class="control-bar clearfix">
+        <ul id="dataset-menu" class="span-17">
+          <li id="dataset-select">
+            <a py:if="c.dataset" href="${h.dataset_url(c.dataset)}">${c.dataset['label']} &raquo;</a>
+            <a py:if="not c.dataset" href="${url(controller='dataset', action='index')}">(select a dataset)</a>
+            <ul>
+              <li py:for="dataset in c.datasets" py:if="not c.dataset or c.dataset['_id'] != dataset['_id']">
+                <a href="${h.dataset_url(dataset)}">${dataset.get('label')}</a>
+              </li>
+              <li><a class="greyed" href="http://link/to/etl/instance">Import additional data&hellip;</a></li>
+            </ul>
+          </li>
+          <py:if test="c.dataset">
+            <li><a href="${url(controller='dataset', action='entries', name=c.dataset['name'])}">Search</a></li>
+            <!--li><a href="${url(controller='dataset', action='explorer',
+              name=c.dataset['name'])}">Explore</a></li-->
+            <li><a href="${url(controller='dimension', action='view', dataset=c.dataset['name'], dimension='from')}">Spenders</a></li>
+            <li><a href="${url(controller='dimension', action='view', dataset=c.dataset['name'], dimension='to')}">Recipients</a></li>
+          </py:if>
+        </ul><!-- /#dataset-menu -->
+
+        <div id="search" class="span-7 last">
+          <form method="get" action="${url(controller='dataset', action='entries', name=c.dataset['name']) if c.dataset else '/search'}">
+            <input type="submit" value="${_('Search')}" class=""/>
+            <input type="text" name="q" value="${c.browser.q if hasattr(c, 'browser') else ''}" />
+          </form>
+        </div><!-- /#search -->
+      </div><!-- /.control-bar -->
+
+      ${content()}
+
+      <div class="clearfix"></div>
+    </div><!-- /#main -->
+
+    <footer class="span-24">
       <ul class="credits">
         <li>&copy; 2011: <a href="http://okfn.org">The Open Knowledge Foundation</a></li>
         <li><a href="http://www.opendefinition.org/okd/">
@@ -123,7 +123,8 @@
       </ul>
     </footer>
 
-</div>
+  </div><!-- /#page -->
+
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-8271754-17']);
@@ -134,6 +135,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 </body>
 </html>
 

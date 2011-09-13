@@ -5,46 +5,45 @@
   <py:def function="nav_class">nav-dataset</py:def>
 
 
- <py:def function="page_title">Welcome</py:def>
- <div py:def="content">
-   <div class="success">
-    Want to help map government finance from all around the globe? <a
-      href="/getinvolved">Get involved</a> in Open Spending!
-   </div>
-   <div id="above-fold">
-      <div py:if="c.dataset" id='centerpiece' class="span-18">
-        <h2>Featured Dataset: ${c.dataset['label']}</h2>
-        <div class="span-18" id="vis"></div>
-      </div>
+  <py:def function="page_title">Welcome</py:def>
 
-      <div class="span-6 last calltoaction-box">
-        <div>
-          <h3>Explore</h3>
-          <p i18n:msg="select, search">
-          <a href="${h.url(controller='dataset', action='index')}">Select a dataset</a> to explore or <a href="${h.url(controller='dataset', action='index')}">search</a> all financial records in our database.
-          </p>
-        </div>
-        <div>
-          <h3>Investigate</h3>
-          <p i18n:msg="getthedata">
-          Do you have spending questions? Ask and help to answer them on
-          <a href="http://getthedata.org">GetTheData.org</a> and join our
-          <a
-            href="http://lists.okfn.org/mailman/listinfo/wdmmg-discuss">discussion
-            list</a>.
-          </p>
-        </div>
-        <div>
-          <h3>Contribute</h3>
-          <p i18n:msg="wiki">
-            Is your country, state or city not on OpenSpending yet? We're
-            looking for spending data from all over the world. Learn about
-            data imports in <a href="http://wiki.openspending.org/Main_Page">our wiki</a>.
-          </p>
-        </div>
+  <div py:def="content" class="content">
+    <div class="getinvolved success">
+     Want to help map government finance from all around the globe? <a
+       href="/getinvolved">Get involved</a> in Open Spending!
+    </div>
+    <div py:if="c.dataset" id='centerpiece' class="span-18">
+      <h2>Featured Dataset: ${c.dataset['label']}</h2>
+      <div class="span-18" id="vis"></div>
+    </div>
+
+    <div class="span-6 last calltoaction-box">
+      <div>
+        <h3>Explore</h3>
+        <p i18n:msg="select, search">
+        <a href="${h.url(controller='dataset', action='index')}">Select a dataset</a> to explore or <a href="${h.url(controller='dataset', action='index')}">search</a> all financial records in our database.
+        </p>
+      </div>
+      <div>
+        <h3>Investigate</h3>
+        <p i18n:msg="getthedata">
+        Do you have spending questions? Ask and help to answer them on
+        <a href="http://getthedata.org">GetTheData.org</a> and join our
+        <a
+          href="http://lists.okfn.org/mailman/listinfo/wdmmg-discuss">discussion
+          list</a>.
+        </p>
+      </div>
+      <div>
+        <h3>Contribute</h3>
+        <p i18n:msg="wiki">
+          Is your country, state or city not on OpenSpending yet? We're
+          looking for spending data from all over the world. Learn about
+          data imports in <a href="http://wiki.openspending.org/Main_Page">our wiki</a>.
+        </p>
       </div>
     </div>
-    <div class="clearfix"></div>
+
     <div class="span-18 dataset-listing">
       <h3>Other Available Datasets</h3>
       <ul class="dataset-list">
