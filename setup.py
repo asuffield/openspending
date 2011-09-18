@@ -25,7 +25,9 @@ setup(
         "Babel==0.9.6",
         "colander==0.9.3",
         "distribute>=0.6.10",
-        "mock==0.7.2"
+        "mock==0.7.2",
+        "sphinx==1.0.7",
+        "argparse==1.2.1"
     ],
     setup_requires=[
         "PasteScript==1.7.4.2",
@@ -49,12 +51,8 @@ setup(
         'paste.app_install': [
             'main = pylons.util:PylonsInstaller'
         ],
-        'paste.paster_command': [
-            'db = openspending.command:DbCommand',
-            'graph = openspending.command:GraphCommand',
-            'removeentries = openspending.command:RemoveEntriesCommand',
-            'solr = openspending.command:SolrCommand',
-            'grantadmin = openspending.command:GrantAdminCommand'
+        'console_scripts': [
+            'ostool = openspending.command:main'
         ]
     }
 )
