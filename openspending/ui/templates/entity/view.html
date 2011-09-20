@@ -7,14 +7,14 @@
 
   <py:def function="page_title" i18n:msg="view_entity">${c.entity['label']}</py:def>
 
-  <div py:def="content" class="content">
+  <div py:def="content">
     <h2>${c.entity['label']}</h2>
     
     <py:if test="hasattr(c, 'viewstate')">
       ${view_panel(c.viewstate)}
     </py:if>
 
-    <div class="span-24 last">
+    <div class="span-24">
       <div id="vis">
       </div>
     </div>
@@ -37,14 +37,14 @@
       </ul>
     </div>
     
-    <div id="detail" class="span-24 last"></div>
+    <div id="detail" class="span-24"></div>
     <py:if test="c.view is None">
       <xi:include href="../_browser.html" />
     </py:if>
 
     <div id="comments" class="comments">
     </div>
-    <div id="access" class="span-24 last">
+    <div id="access" class="span-24">
       Download a machine-readable version of <i>${c.entity['label']}</i>: 
       <a href="${h.entity_url(c.entity, action='view', format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
     </div>

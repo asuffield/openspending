@@ -1,0 +1,35 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip="">
+
+<div class="control-bar clearfix">
+  <ul id="dataset-menu" class="span-17">
+    <li id="dataset-select">
+      <a py:if="c.dataset" href="${h.dataset_url(c.dataset)}">${c.dataset['label']} &raquo;</a>
+      <a py:if="not c.dataset" href="${url(controller='dataset', action='index')}">(select a dataset)</a>
+      <ul>
+        <li py:for="dataset in c.datasets" py:if="not c.dataset or c.dataset['_id'] != dataset['_id']">
+          <a href="${h.dataset_url(dataset)}">${dataset.get('label')}</a>
+        </li>
+        <li><a class="greyed" href="http://link/to/etl/instance">Import additional data&hellip;</a></li>
+      </ul>
+    </li>
+    <py:if test="c.dataset">
+      <li><a href="${url(controller='dataset', action='entries', name=c.dataset['name'])}">Search</a></li>
+      <!--li><a href="${url(controller='dataset', action='explorer',
+        name=c.dataset['name'])}">Explore</a></li-->
+      <li><a href="${url(controller='dimension', action='view', dataset=c.dataset['name'], dimension='from')}">Spenders</a></li>
+      <li><a href="${url(controller='dimension', action='view', dataset=c.dataset['name'], dimension='to')}">Recipients</a></li>
+    </py:if>
+  </ul><!-- /#dataset-menu -->
+
+  <div id="search" class="span-7 last">
+    <form method="get" action="${url(controller='dataset', action='entries', name=c.dataset['name']) if c.dataset else '/search'}">
+      <input type="submit" value="${_('Search')}" class=""/>
+      <input type="text" name="q" value="${c.browser.q if hasattr(c, 'browser') else ''}" />
+    </form>
+  </div><!-- /#search -->
+</div><!-- /.control-bar -->
+
+</html>

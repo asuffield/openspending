@@ -22,15 +22,16 @@
   <link rel="shortcut icon" href="${h.static('img/favicon.ico')}" type="image/x-icon" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="${h.static('css/reset.css')}" />
-  <script src="${h.static('js/libs/modernizr-1.6.min.js')}"></script>
 
+  <link rel="stylesheet" href="${h.static('css/reset.css')}" />
   <link rel="stylesheet" href="${h.static('css/blueprint/screen.css')}" type="text/css" media="screen, projection" />
   <link rel="stylesheet" href="${h.static('css/blueprint/print.css')}" type="text/css" media="print" />
   <link rel="stylesheet" href="${h.static('css/style.css')}" />
   <!--[if lt IE 8]>
     <link rel="stylesheet" href="/css/blueprint/ie.css" type="text/css" media="screen, projection" />
   <![endif]-->
+
+  <script src="${h.static('js/libs/modernizr-1.6.min.js')}"></script>
   <script src="${h.static('js/libs/jquery-1.5.1.min.js')}"></script>
   <script src="${h.static('js/libs/underscore-min.js')}"></script>
   <script src="${h.static('js/libs/backbone-min.js')}"></script>
@@ -43,7 +44,7 @@
   </py:if>
 </head>
 <body class="${nav_class()}">
-  <div id="page" class="container">
+  <div class="container">
     <py:with vars="messages = list(h._flash.pop_messages())">
       <div class="flash-banner-box" py:if="len(messages)">
         <div class="flash-banner ${m.category}" py:for="m in messages">
@@ -57,12 +58,14 @@
         <a href="${g.blog_link}">Blog</a>
         <a py:if="g.forum_link" href="${g.forum_link}">Forum</a>
         <a href="${g.wiki_link}">About</a>
-        <a py:if="c.account is None" href="/login">Login or register</a>
-        <py:if test="c.account is not None">
-          <a href="/settings">My Profile</a>
-          <a href="/logout">Logout</a>
-        </py:if>
-        <a style="color: #C7262E;" href="/reporterror">Report data problems</a>
+        <py:choose test="c.account">
+          <py:when>
+            <a href="/settings">My Profile</a>
+            <a href="/logout">Logout</a>
+          </py:when>
+          <a py:otherwise="" href="/login">Login or register</a>
+        </py:choose>
+        <a class='reporterror' href="/reporterror">Report data problems</a>
       </nav>
       <h1 id="site-title">
         <a href="/">${g.site_title}</a>
@@ -73,38 +76,11 @@
     </header>
 
     <div id="main" class="span-24">
-      <div class="control-bar clearfix">
-        <ul id="dataset-menu" class="span-17">
-          <li id="dataset-select">
-            <a py:if="c.dataset" href="${h.dataset_url(c.dataset)}">${c.dataset['label']} &raquo;</a>
-            <a py:if="not c.dataset" href="${url(controller='dataset', action='index')}">(select a dataset)</a>
-            <ul>
-              <li py:for="dataset in c.datasets" py:if="not c.dataset or c.dataset['_id'] != dataset['_id']">
-                <a href="${h.dataset_url(dataset)}">${dataset.get('label')}</a>
-              </li>
-              <li><a class="greyed" href="http://link/to/etl/instance">Import additional data&hellip;</a></li>
-            </ul>
-          </li>
-          <py:if test="c.dataset">
-            <li><a href="${url(controller='dataset', action='entries', name=c.dataset['name'])}">Search</a></li>
-            <!--li><a href="${url(controller='dataset', action='explorer',
-              name=c.dataset['name'])}">Explore</a></li-->
-            <li><a href="${url(controller='dimension', action='view', dataset=c.dataset['name'], dimension='from')}">Spenders</a></li>
-            <li><a href="${url(controller='dimension', action='view', dataset=c.dataset['name'], dimension='to')}">Recipients</a></li>
-          </py:if>
-        </ul><!-- /#dataset-menu -->
 
-        <div id="search" class="span-7 last">
-          <form method="get" action="${url(controller='dataset', action='entries', name=c.dataset['name']) if c.dataset else '/search'}">
-            <input type="submit" value="${_('Search')}" class=""/>
-            <input type="text" name="q" value="${c.browser.q if hasattr(c, 'browser') else ''}" />
-          </form>
-        </div><!-- /#search -->
-      </div><!-- /.control-bar -->
+      <xi:include href="_dataset_bar.html" />
 
       ${content()}
 
-      <div class="clearfix"></div>
     </div><!-- /#main -->
 
     <footer class="span-24">
@@ -123,7 +99,7 @@
       </ul>
     </footer>
 
-  </div><!-- /#page -->
+  </div><!-- /.container (Blueprint) -->
 
 <script type="text/javascript">
   var _gaq = _gaq || [];

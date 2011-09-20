@@ -3,9 +3,9 @@
   xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
 
   <py:def function="nav_class">nav-home</py:def>
-  <py:def function="page_title">${c.code}</py:def>
+  <py:def function="page_title">${c.code} Not Authorised</py:def>
 
-  <div py:def="content" class="content">
+  <div py:def="content" class='innercontent'>
     ${c.message}
     <p py:if="c.account">
     You may not have the relevant rights.
@@ -13,7 +13,6 @@
     <p py:if="not c.account">
     You may need to login.
     </p>
-
   </div>
 
   <xi:include href="layout.html" />

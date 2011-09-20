@@ -44,7 +44,7 @@
   </py:def>
 
 
-  <div py:def="content" class="content">
+  <div py:def="content">
     <h2 class="page-title">${c.dataset['label']}</h2>
     <py:if test="hasattr(c, 'viewstate')">
       ${view_panel(c.viewstate)}
@@ -69,7 +69,7 @@
           name=c.dataset['name'])}">Explorer</a>: Dynamic data visualisations</li-->
       </ul>
     </div>
-    <div class="span-24 last">
+    <div class="span-24">
       <div id="detail" />
     </div>
 	<!-- unconditional -->
@@ -79,7 +79,7 @@
     </py:if>
     <div id="comments" class="comments">
     </div>
-    <div id="access" class="span-24 last">
+    <div id="access" class="span-24">
       Download a machine-readable version of <i>${c.dataset['label']}</i> (metadata):
       <a href="${url(controller='dataset', action='view', name=c.dataset['name'], format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
     </div>

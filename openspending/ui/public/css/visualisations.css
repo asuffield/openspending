@@ -1,0 +1,9 @@
+#vis span.novis {
+  display: block;
+  line-height: 400px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 200%;
+  color: #bbb;
+  border: 1px dashed #bbb;
+}
